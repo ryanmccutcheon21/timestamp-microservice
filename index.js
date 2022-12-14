@@ -25,8 +25,6 @@ app.get("/api/hello", (req, res) => {
 });
 
 app.get('/api/:date', (req, res) => {
-  let date = new Date()
-
   if (req.params.date) {
     let unixDate = +req.params.date
 
@@ -35,6 +33,13 @@ app.get('/api/:date', (req, res) => {
     if (!(date instanceof Date) || isNaN(date.getTime())) return res.json({ error: 'Invalid Date' })
   }
   return res.json({ unix: date.getTime(), utc: date.toUTCString() })
+})
+
+app.get('/api', (req, res) => {
+  return res.json({
+    unix: new Date().getTime(),
+    utc: new Date().toUTCString()
+  })
 })
 
 // listen for requests :)
